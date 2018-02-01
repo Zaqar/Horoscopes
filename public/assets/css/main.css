@@ -1,0 +1,77 @@
+body {
+	min-width: 320px;
+}
+
+article {
+	background-image: url(../img/fon4.jpg);
+	color: #fff;
+}
+
+.days li{
+	display: inline-block;
+	padding-right:20px;
+}
+
+li a{
+	color: white;
+	text-transform: uppercase;
+}
+
+.head{
+	text-align: center;
+}
+
+.head a{
+	color: #fff;
+	text-decoration: underline;
+}
+
+.head a:hover,
+.head a:focus{
+	color: red;
+	text-decoration: underline;
+	border-style: solid;
+	border-color: #fff;
+}
+
+
+.days li a{
+	color: #fff;
+	text-decoration: underline;
+}
+.days li a:hover,
+.days li a:focus{
+	text-decoration: underline;
+	color: red;
+	border-style: solid;
+	border-color: #fff;
+}
+
+.img_padd{
+	padding-top: 30px;
+	margin:auto;
+}
+
+
+.text_padd{
+	padding-left: 60px;
+}
+
+.text_padd p{
+	font-size: 18px;
+	padding-bottom: 20px;
+}
+
+
+.param_block i{
+	font-size: 70px;
+	color:#fff;
+	opacity: 0.7;
+}
+
+.param_block i span{
+	font-size: 90px;
+	color:#fff;
+	opacity: 1;
+}
+

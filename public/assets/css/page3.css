@@ -1,0 +1,26 @@
+.fluid_class {
+	padding-top: 30px; 
+	padding-left: 60px; 
+	padding-bottom: 30px
+}
+
+.head_class {
+	background-image: url(../img/совместимость3.png); 
+	height: 182px; 
+	background-repeat:no-repeat; 
+	text-align: center;
+	position: relative;
+}
+
+.inner_class {
+	position: absolute;
+	top: 0;
+	left: 0;
+    font-size: 88px;
+    color: #fff;
+    padding-top: 22px;
+}
+
+.text_class {
+	padding-top: 20px; 
+}

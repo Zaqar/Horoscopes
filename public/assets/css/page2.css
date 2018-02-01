@@ -1,0 +1,52 @@
+.head{
+	text-align: center;
+}
+
+.head a{
+	color: #000;
+	text-decoration: underline;
+}
+
+.head a:hover,
+.head a:focus{
+	color: red;
+	text-decoration: underline;
+	border-style: solid;
+	border-color: #fff;
+}
+
+.img_padd{
+	padding-top: 30px;
+	margin:auto;
+}
+
+
+.text_padd{
+	padding-left: 60px;
+}
+
+.text_padd p{
+	font-size: 18px;
+	padding-bottom: 20px;
+}
+
+article {
+	color: #000;
+}
+.param_block i{
+	font-size: 70px;
+	color:#fff;
+	opacity: 0.5;
+}
+
+.param_block i span{
+	font-size: 90px;
+	color:#fff;
+	opacity: 1;
+}
+
+hr {
+	border:none; 
+	background: #939393;
+	height:1px;
+}
