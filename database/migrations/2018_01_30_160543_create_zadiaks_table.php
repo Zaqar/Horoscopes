@@ -17,6 +17,8 @@ class CreateZadiaksTable extends Migration
             $table->increments('id');
             $table->string('name',30);
             $table->string('image',50);
+            $table->date('start_month');
+            $table->date('end_month');
             $table->timestamps();
         });
     }

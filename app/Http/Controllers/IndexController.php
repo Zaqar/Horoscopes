@@ -6,6 +6,7 @@ use App\CompatibilityHoroscope;
 use App\Zadiak;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class IndexController extends Controller
@@ -20,34 +21,17 @@ class IndexController extends Controller
     public function zadiakByBirhData(Request $request) {
 
         if($request->has('birthDay') && $request->has('birthMonth') && $request->has('birthYear')) {
-            $zadiakByYearName = [
-                '0'=>'Крыса',
-                '1'=>'Бык',
-                '2'=>'Тигр',
-                '3'=>'Кролик',
-                '4'=>'Дракон',
-                '5'=>'Змея',
-                '6'=>'Лошадь',
-                '7'=>'Коза',
-                '8'=>'Обезьяна',
-                '9'=>'Петух',
-                '10'=>'Собака',
-                '11'=>'Свинья',
-            ];
+            $zadiakByYearName = ['Крыса', 'Бык', 'Тигр', 'Кролик', 'Дракон', 'Змея', 'Лошадь', 'Коза', 'Обезьяна', 'Петух', 'Собака', 'Свинья'];
             $birthYear = $request->input('birthYear');
             $birthDay = $request->input('birthDay');
             $birthMonth = $request->input('birthMonth');
             $zadiakYearName = $zadiakByYearName[abs((int)$birthYear-1924)%12];
-            $dayCountBeforeBirthday = (int) $birthDay;
-            for ($i = 1; $i<(int) $birthMonth; ++$i) {
-                $dayCountBeforeBirthday+=(int)cal_days_in_month(CAL_GREGORIAN, $i, (int) $birthYear);
-            }
-            $dayCountBeforeBirthday %=356;
-            if($dayCountBeforeBirthday<=19) {
-                $zadiakByMonth = Zadiak::where('end_month','<=',19)->first();
-            }
-            else {
-                $zadiakByMonth = Zadiak::where('end_month','>=',$dayCountBeforeBirthday)->where('start_month','<=',$dayCountBeforeBirthday)->first();
+
+            $date = Carbon::createFromFormat('Y-m-d',"2018-$birthMonth-$birthDay")->toDateString();
+            if($birthDay<=19) {
+                $zadiakByMonth = Zadiak::where('end_month','<=','2018-01-19')->first();
+            } else {
+                $zadiakByMonth = DB::table('zadiaks')->whereDate('end_month','>=',$date)->whereDate('start_month','<=',$date)->first();
             }
             $birthInfo = ['zadiakYearName'=>$zadiakYearName, 'birthMonth'=>$this->months[(int) $birthMonth-1] ,'birthDay'=> $birthDay,'birthYear'=> $birthYear];
             session(['birthInfo'=>$birthInfo, 'zadiakName'=>$zadiakByMonth->name]);
