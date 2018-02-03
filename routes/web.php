@@ -17,7 +17,7 @@ Route::group(['middleware'=>'web'],function () {
 
     Route::post('/', 'IndexController@zadiakByBirhData')->name('indexPost');
 
-    Route::get('/{zadiakName}/{day}', 'IndexController@contentShow')->name('horoscope');
+    Route::get('/{zadiakName}/{day}/{checkFromIcon?}', 'IndexController@contentShow')->name('horoscope');
 
     Route::get('/compatibilityHoroscope', function () {
         return view('layouts.page2');

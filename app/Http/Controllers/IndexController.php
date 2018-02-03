@@ -5,17 +5,22 @@ namespace App\Http\Controllers;
 use App\CompatibilityHoroscope;
 use App\Zadiak;
 use Carbon\Carbon;
+use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class IndexController extends Controller
 {
 
-    private $months = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+    private function getRusMonth($date) {
+        $month = strftime('%B',Carbon::createFromFormat('Y-m-d',$date)->timestamp);
+        return iconv("windows-1251", "UTF-8", $month);
+    }
 
     public function index() {
-       return $this->contentShow('Для всех знаков','today');
+        return $this->contentShow('Для всех знаков', Config::get('constants.TODAY'));
     }
 
     public function zadiakByBirhData(Request $request) {
@@ -28,34 +33,21 @@ class IndexController extends Controller
             $zadiakYearName = $zadiakByYearName[abs((int)$birthYear-1924)%12];
 
             $date = Carbon::createFromFormat('Y-m-d',"2018-$birthMonth-$birthDay")->toDateString();
-            if($birthDay<=19) {
+            if($birthMonth==1 || $birthMonth==12) {
                 $zadiakByMonth = Zadiak::where('end_month','<=','2018-01-19')->first();
             } else {
-                $zadiakByMonth = DB::table('zadiaks')->whereDate('end_month','>=',$date)->whereDate('start_month','<=',$date)->first();
+                $zadiakByMonth = Zadiak::whereDate('end_month','>=',$date)->whereDate('start_month','<=',$date)->first();
             }
-            $birthInfo = ['zadiakYearName'=>$zadiakYearName, 'birthMonth'=>$this->months[(int) $birthMonth-1] ,'birthDay'=> $birthDay,'birthYear'=> $birthYear];
+            $birthInfo = ['zadiakYearName'=>$zadiakYearName, 'birthMonth'=>$this->getRusMonth($date) ,'birthDay'=> $birthDay,'birthYear'=> $birthYear];
             session(['birthInfo'=>$birthInfo, 'zadiakName'=>$zadiakByMonth->name]);
-           return $this->contentShow($zadiakByMonth, 'today');
+           return $this->contentShow($zadiakByMonth, Config::get('constants.TODAY'));
         }
     }
 
-    public function contentShow($zadiakName, $day) {
-        $zadiakDaysMonths = [
-            '21 марта — 19 апреля',
-            '20 апреля — 20 мая',
-            '21 мая — 20 июня',
-            '21 июня — 22 июля',
-            '23 июля — 22 августа',
-            '23 августа — 22 сентября',
-            '23 сентября — 22 октября',
-            '23 октября — 21 ноября',
-            '22 ноября — 21 декабря'
-            ,'22 декабря — 19 января',
-            '20 января — 18 февраля',
-            '19 февраля — 20 марта'
-        ];
+    public function contentShow($zadiakName, $day, $checkFromIcon=1) {
+        session(['day'=>$day]);
 
-        if($zadiakName == session('zadiakName')&&(session(['birthInfo'])!=[]) || is_object($zadiakName)) {
+        if(($zadiakName == session('zadiakName')&&(session('birthInfo')!=[]) && $checkFromIcon!=0) || is_object($zadiakName)) {
             $birthInfo = session('birthInfo');
         } else {
             session(['birthInfo'=>[],'zadiakName'=>'']);
@@ -63,39 +55,48 @@ class IndexController extends Controller
         }
 
         $zadiaks = Zadiak::all();
+
+        foreach ($zadiaks as $zadiak) {
+            $start_month = $zadiak->start_month;
+            $end_month = $zadiak->end_month;
+            $start_day = Carbon::createFromFormat('Y-m-d',$start_month)->day;
+            $end_day = Carbon::createFromFormat('Y-m-d',$end_month)->day;
+            $zadiakDaysMonths [] = "$start_day ".$this->getRusMonth($start_month)." - "."$end_day ".$this->getRusMonth($end_month);
+        }
+
         if(!is_object($zadiakName)) {
             $findZadiak =  $zadiaks->where('name',$zadiakName)->first();
         } else {
             $findZadiak = $zadiakName;
         }
         switch ($day) {
-            case 'today' :
-                $date = ['day'=> Carbon::today()->day, 'month'=>$this->months[Carbon::today()->month-1]];
-                $content = $findZadiak->contents()->where('type','d_'.$date['day'])->first();
+            case Config::get('constants.YESTERDAY') :
+                $date = ['day'=> Carbon::today()->subDay()->day,'month'=>$this->getRusMonth(Carbon::today()->subDay()->toDateString())];
+                $content = $findZadiak->contents()->where('start',Carbon::today()->subDay()->toDateString())->first();
+                break;
+            case Config::get('constants.TODAY') :
+                $date = ['day'=> Carbon::today()->day, 'month'=>$this->getRusMonth(Carbon::today()->toDateString())];
+                $content = $findZadiak->contents()->where('start',Carbon::today()->toDateString())->first();
              break;
-            case 'yesterday' :
-                 $date = ['day'=> Carbon::today()->subDay()->day,'month'=>$this->months[Carbon::today()->subDay()->month-1]];
-                 $content = $findZadiak->contents()->where('type','d_'. ($date['day']==31)?0:$date['day'])->first();
+            case Config::get('constants.TOMORROW') :
+                $date = ['day'=> Carbon::today()->addDay()->day,'month'=>$this->getRusMonth(Carbon::today()->tomorrow()->toDateString())];
+                $content = $findZadiak->contents()->where('start',Carbon::today()->addDay()->toDateString())->first();
                 break;
-            case 'tomorrow' :
-                $date = ['day'=> Carbon::today()->tomorrow()->day,'month'=>$this->months[Carbon::today()->tomorrow()->month-1]];
-                if (Carbon::today()->daysInMonth!=31 && $date['day']==Carbon::today()->daysInMonth) {
-                    $content = $findZadiak->contents()->where('type','d_'. 32)->first();
-                } else {
-                    $content = $findZadiak->contents()->where('type','d_'. $date['day'])->first();
-                }
+            case Config::get('constants.WEEK') :
+                $date = ['start_week'=>Carbon::today()->startOfWeek()->day,'end_week'=>Carbon::today()->endOfWeek()->day,'month'=>$this->getRusMonth(Carbon::today()->endOfWeek()->toDateString())];
+                       $content = $findZadiak->contents()->where('start',Carbon::today()->startOfWeek()->toDateString())->offset(1)->first();
                 break;
-            case 'week' :
-                $date = ['start_week'=>Carbon::today()->startOfWeek()->day,'end_week'=>Carbon::today()->endOfWeek()->day,'month'=>$this->months[Carbon::today()->endOfWeek()->month-1]];
-                       $content = $findZadiak->contents()->where('type','w_'.Carbon::today()->weekOfMonth)->first();
+            case Config::get('constants.MONTH') :
+                $date = ['month'=>$this->getRusMonth(Carbon::today()->toDateString()), 'year'=>Carbon::today()->year];
+                $query =$findZadiak->contents()->where('start',Carbon::today()->startOfMonth()->toDateString());
+                $count = $query->count();
+                $content = $query->offset($count-1)->first();
                 break;
-            case 'month' :
-                $date = ['month'=>$this->months[Carbon::today()->month-1], 'year'=>Carbon::today()->year];
-                        $content =$findZadiak->contents()->where('type','m_'.Carbon::today()->month)->first();
-                break;
-            case 'year' :
+            case Config::get('constants.YEAR') :
                 $date = ['year'=>Carbon::today()->year];
-                      $content = $findZadiak->contents()->where('type','y')->first();
+                $query =$findZadiak->contents()->where('start',Carbon::today()->toDateString());
+                $count = $query->count();
+                $content = $query->offset($count-1)->first();
                 break;
         }
         return view('site.index',['zadiaks'=>$zadiaks, 'content'=>$content,'thisZadiak'=>$findZadiak, 'birthInfo'=>$birthInfo, 'day'=>$day,'date'=>$date, 'zodiakListData'=>$zadiakDaysMonths]);
@@ -107,6 +108,5 @@ class IndexController extends Controller
         $zadiaksName [] = Zadiak::where('id',(int)$request->input('first_id'))->value('name');
         $zadiaksName [] = Zadiak::where('id',(int)$request->input('second_id'))->value('name');
         return view('site.index_page3',['content'=>$content, 'zadiaksName'=>$zadiaksName]);
-
     }
 }

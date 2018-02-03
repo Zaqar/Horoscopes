@@ -88,7 +88,7 @@
             <div class="row">
                 @for($i = 0; $i<12; ++$i)
                 <div class="col-md-2" style="text-align: center;padding: 20px">
-                    <a href="{{ route('horoscope',array('zadiakName'=>$zadiaks[$i]->name,'day'=>'today')) }}">
+                    <a href="{{ route('horoscope',array('zadiakName'=>$zadiaks[$i]->name,'day'=>session('day'),'checkFromIcon'=>0)) }}">
                         {!! Html::image('assets/img/ZodiakIcons/'.$zadiaks[$i]->image) !!}
                         <p>{{$zadiaks[$i]->name}}</p>
                         <p>{{$zodiakListData[$i]}}</p>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Content extends Model
 {
     //
+    public $timestamps = false;
     protected $fillable=['zadiak'];
 
     public function zadiak() {

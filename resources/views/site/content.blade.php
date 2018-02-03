@@ -18,23 +18,23 @@
 			<div class="col-md-6 text_padd">
 				<h1><strong>Гороскоп на сегодня:{{$thisZadiak->name}}</strong></h1>
 				<h4>Прогноз на
-					@if($day == 'week')
+					@if($day == config('constants.WEEK'))
 						<i>{{$date['start_week']}} - {{  $date['end_week'] }}  {{ $date['month'] }}</i>
-					@elseif($day == 'month')
+					@elseif($day == config('constants.MONTH'))
 						<i>{{$date['month']}} {{ $date['year'] }}</i>
-					@elseif($day == 'year')
+					@elseif($day == config('constants.YEAR'))
 						<i>{{ $date['year'] }}</i>
 					@else
 						<i>{{ $date['day'] }} {{ $date['month'] }}</i>
 					@endif
 				</h4>
 				<ul class="days" style="padding: 20px">
-					<li><a href="{{ route('horoscope',array('zadiakName'=>$thisZadiak->name,'day'=>'yesterday')) }}">вчера</a></li>
-					<li><a href="{{ route('horoscope',array('zadiakName'=>$thisZadiak->name,'day'=>'today')) }}">сегодня</a></li>
-					<li><a href="{{ route('horoscope',array('zadiakName'=>$thisZadiak->name,'day'=>'tomorrow')) }}">завтра</a></li>
-					<li><a href="{{ route('horoscope',array('zadiakName'=>$thisZadiak->name,'day'=>'week')) }}">недела</a></li>
-					<li><a href="{{ route('horoscope',array('zadiakName'=>$thisZadiak->name,'day'=>'month')) }}">месяць</a></li>
-					<li><a href="{{ route('horoscope',array('zadiakName'=>$thisZadiak->name,'day'=>'year')) }}">2018</a></li>
+					<li><a href="{{ route('horoscope',array('zadiakName'=>$thisZadiak->name,'day'=>config('constants.YESTERDAY'))) }}">вчера</a></li>
+					<li><a href="{{ route('horoscope',array('zadiakName'=>$thisZadiak->name,'day'=>config('constants.TODAY'))) }}">сегодня</a></li>
+					<li><a href="{{ route('horoscope',array('zadiakName'=>$thisZadiak->name,'day'=>config('constants.TOMORROW'))) }}">завтра</a></li>
+					<li><a href="{{ route('horoscope',array('zadiakName'=>$thisZadiak->name,'day'=>config('constants.WEEK'))) }}">недела</a></li>
+					<li><a href="{{ route('horoscope',array('zadiakName'=>$thisZadiak->name,'day'=>config('constants.MONTH'))) }}">месяць</a></li>
+					<li><a href="{{ route('horoscope',array('zadiakName'=>$thisZadiak->name,'day'=>config('constants.YEAR'))) }}">2018</a></li>
 				</ul>
 				<p>
 				{{$content->content}}
@@ -45,7 +45,7 @@
 		<div class="row text_padd" style="padding-bottom: 10px">
 			<div class="col-xs-12 col-sm-4  col-md-2 col-md-offset-2">
 				<div class = "param_block">
-					<i class="fa fa-heart-o" aria-hidden="true"><span>{{$content->point_1}}</span></i>
+					<i class="fa fa-heart-o" aria-hidden="true"><span>{{$content->love}}</span></i>
 					<br>
 					Любовь
 				</div>
@@ -53,7 +53,7 @@
 
 			<div class="col-xs-12 col-sm-4 col-md-2 ">
 				<div class = "param_block">
-					<i class="fa fa-bar-chart" aria-hidden="true"><span>{{$content->point_2}}</span></i>
+					<i class="fa fa-bar-chart" aria-hidden="true"><span>{{$content->business}}</span></i>
 					<br>
 					Бизнес
 				</div>
@@ -61,7 +61,7 @@
 
 			<div class="col-xs-12 col-sm-4 col-md-2 ">
 				<div class = "param_block">
-					<i class="fa fa-heartbeat" aria-hidden="true"><span>{{$content->point_3}}</span></i>
+					<i class="fa fa-heartbeat" aria-hidden="true"><span>{{$content->health}}</span></i>
 					<br>
 					Здоровье
 				</div>
