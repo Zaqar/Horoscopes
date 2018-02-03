@@ -38,9 +38,6 @@ li a{
 	color: #fff;
 	text-decoration: underline;
 }
-.days li a:visited {
-	color: #685d20;
-}
 .days li a:hover,
 .days li a:focus{
 	text-decoration: underline;
