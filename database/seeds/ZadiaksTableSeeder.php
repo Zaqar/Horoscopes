@@ -15,7 +15,7 @@ class ZadiaksTableSeeder extends Seeder
         DB::table('zadiaks')->insert([
             ['name'=>'Овен','image'=>'овен.png','start_month'=>'2018-03-21','end_month'=>'2018-04-19'],
             ['name'=>'Телец','image'=>'телец.png','start_month'=>'2018-04-20','end_month'=>'2018-05-20'],
-            ['name'=>'','image'=>'близнецы.png','start_month'=>'2018-05-21','end_month'=>'2018-06-20'],
+            ['name'=>'Близнецы','image'=>'близнецы.png','start_month'=>'2018-05-21','end_month'=>'2018-06-20'],
             ['name'=>'Рак','image'=>'рак.png','start_month'=>'2018-06-21','end_month'=>'2018-07-22'],
             ['name'=>'Лев','image'=>'лев.png','start_month'=>'2018-07-23','end_month'=>'2018-08-22'],
             ['name'=>'Дева','image'=>'дева.png','start_month'=>'2018-08-23','end_month'=>'2018-09-22'],
