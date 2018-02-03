@@ -12,7 +12,7 @@ class ZadiaksTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('zodiacs')->insert([
+        DB::table('zadiaks')->insert([
             ['name'=>'Овен','image'=>'овен.png','start_month'=>'2018-03-21','end_month'=>'2018-04-19'],
             ['name'=>'Телец','image'=>'телец.png','start_month'=>'2018-04-20','end_month'=>'2018-05-20'],
             ['name'=>'','image'=>'близнецы.png','start_month'=>'2018-05-21','end_month'=>'2018-06-20'],
@@ -25,7 +25,7 @@ class ZadiaksTableSeeder extends Seeder
             ['name'=>'Козерог','image'=>'козерог.png','start_month'=>'2018-12-22','end_month'=>'2018-01-19'],
             ['name'=>'Водолей','image'=>'водолей.png','start_month'=>'2018-01-20','end_month'=>'2018-02-18'],
             ['name'=>'Рыбы','image'=>'рыбы.png','start_month'=>'2018-02-19','end_month'=>'2019-03-20'],
-            ['name'=>'Для всех знаков','image'=>'все.png','start_month'=>'','end_month'=>'']
+            ['name'=>'Для всех знаков','image'=>'все.png','start_month'=>'2018-01-01','end_month'=>'2018-01-01']
         ]);
     }
 }
