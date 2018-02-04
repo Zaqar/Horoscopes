@@ -11,6 +11,6 @@ class Content extends Model
     protected $fillable=['zadiak'];
 
     public function zadiak() {
-        return $this->hasOne('\App\Zadiak');
+        return $this->belongsTo('\App\Zadiak');
     }
 }

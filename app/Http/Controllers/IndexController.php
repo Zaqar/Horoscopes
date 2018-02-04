@@ -102,7 +102,6 @@ class IndexController extends Controller
         return view('site.index',['zadiaks'=>$zadiaks, 'content'=>$content,'thisZadiak'=>$findZadiak, 'birthInfo'=>$birthInfo, 'day'=>$day,'date'=>$date, 'zodiakListData'=>$zadiakDaysMonths]);
     }
 
-
     public function compatibilityHoroscopeShow(Request $request) {
         $content = CompatibilityHoroscope::where('first_id',(int)$request->input('first_id'))->where('second_id',(int)$request->input('second_id'))->first();
         $zadiaksName [] = Zadiak::where('id',(int)$request->input('first_id'))->value('name');
