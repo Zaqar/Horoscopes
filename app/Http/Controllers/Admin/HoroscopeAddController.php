@@ -22,9 +22,9 @@ class HoroscopeAddController extends Controller
             $content-> start =$request->input('start');
             $content->save();
             return redirect()->route('adminHoroscope');
-        } elseif(view()->exists('admin.horoscopes_add')) {
+        } elseif(view()->exists('admin.horoscopes.horoscopes_add')) {
             $zadiaks = Zadiak::all();
-            return view("admin.horoscopes_add", ['zadiaks'=>$zadiaks]);
+            return view("admin.horoscopes.horoscopes_add", ['zadiaks'=>$zadiaks]);
         } else {
             abort(404);
         }

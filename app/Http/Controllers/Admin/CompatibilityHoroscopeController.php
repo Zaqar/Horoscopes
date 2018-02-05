@@ -2,22 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CompatibilityHoroscope;
 use App\Content;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CompatibilityHoroscopeController extends Controller
 {
-    //
-//    public function show() {
-//        if(view()->exists('admin.horoscopes')) {
-//            $horoscopes = Content::all();
-//            $data = [
-//                'title'=>'Горосокпы',
-//                'horoscopes'=> $horoscopes
-//            ];
-//            return view("admin.horoscopes", $data);
-//        }
-//        abort(404);
-//    }
+
+    public function show(Request $request) {
+        if(view()->exists('admin.compatibilityHoroscopes.contents')) {
+            $count = CompatibilityHoroscope::count();
+            if($request->has('countOfRows')) {
+                $contents = CompatibilityHoroscope::skip($request->input('countOfRows'))->take(20)->get();
+                $startOfRow = $request->input('countOfRows');
+            } else {
+                $contents = CompatibilityHoroscope::take(50)->get();
+                $startOfRow = null;
+            }
+            return view("admin.compatibilityHoroscopes.contents", ['count'=>$count, 'horoscopes'=>$contents, 'startOfRow'=>$startOfRow]);
+        }
+        abort(404);
+    }
 }

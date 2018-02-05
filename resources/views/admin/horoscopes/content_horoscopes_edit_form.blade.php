@@ -1,5 +1,5 @@
 <div class="container" style="padding-top: 20px ">
-	<form class="form-horizontal" action="{{route('horoscopeEdit',['id'=>$content])}}" method='POST'>
+	<form class="form-horizontal" action="{{route('horoscopeEdit',['id'=>$content->id])}}" method='POST'>
 		{!! csrf_field() !!}
 		<div class="form-group">
 			<label for="zadiak_id" class="col-sm-2 control-label">Выберите задиак</label>
@@ -78,6 +78,7 @@
 				</select>
 			</div>
 		</div>
+
 
 		<div class="form-group">
 			<label for="text" class="col-sm-2 control-label">Вставьте текст</label>

@@ -26,16 +26,17 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'], function () {
     });
 
     Route::group(['prefix'=>'compatibilityHoroscope'], function () {
-        Route::get('/', ['uses'=>'Admin\CompatibilityHoroscopeController@execute', 'as'=>'adminCompatibilityHoroscope']);
-        Route::match(['get','post'],'/add', ['uses'=>'Admin\CompatibilityHoroscopeAddController@execute', 'as'=>'compatibilityHoroscopeAdd']);
-        Route::match(['get','post','delete'],'/edit', ['uses'=>'Admin\CompatibilityHoroscopeEditController@execute', 'as'=>'compatibilityHoroscopeEdit']);
+        Route::get('/', ['uses'=>'Admin\CompatibilityHoroscopeController@show', 'as'=>'adminCompatibilityHoroscope']);
+        Route::match(['get','post'],'/add', ['uses'=>'Admin\CompatibilityHoroscopeAddController@add', 'as'=>'compatibilityHoroscopeAdd']);
+        Route::match(['get','post','delete'],'/edit/{id}', ['uses'=>'Admin\CompatibilityHoroscopeEditController@execute', 'as'=>'compatibilityHoroscopeEdit']);
     });
 
     Route::group(['prefix'=>'zadiaks'], function () {
-        Route::get('/', ['uses'=>'Admin\ZadiakController@execute', 'as'=>'zadiakShow']);
-        Route::match(['get','post'],'/add', ['uses'=>'Admin\ZadiakAddController@execute', 'as'=>'zadiakAdd']);
-        Route::match(['get','post','delete'],'/edit', ['uses'=>'Admin\ZadiakEditController@execute', 'as'=>'zadiakEdit']);
+        Route::get('/', ['uses'=>'Admin\ZadiakController@show', 'as'=>'adminZadiak']);
+        Route::match(['get','post'],'/add', ['uses'=>'Admin\ZadiakAddController@add', 'as'=>'zadiakAdd']);
+        Route::match(['get','post','delete'],'/edit/{id}', ['uses'=>'Admin\ZadiakEditController@execute', 'as'=>'zadiakEdit']);
     });
+
 });
 
 Route::group(['middleware'=>'web'],function () {

@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-	@include('admin.content_horoscopes')
+	@include('admin.zadiaks.content_zadiaks')
 @endsection

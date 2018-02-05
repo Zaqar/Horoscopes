@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-	@include('admin.content_horoscopes_edit_form')
+	@include('admin.compatibilityHoroscopes.content_compatibility_horoscope')
 @endsection

@@ -1,8 +1,29 @@
-<div class="container-fluid" style="padding-left:190px;padding-bottom: 30px; text-align: left">
-	<div class="row">
-		<a href="{{route('horoscopeAdd')}}">
-			{!! Form::button('Новая запись',['class'=>'btn btn-danger','type'=>'submit']) !!}
-		</a>
+<div class="container-fluid">
+	<div class="row" style="padding-left: 50px; padding-bottom: 10px">
+		<div class="col-sm-2 ">
+			<a href="{{route('horoscopeAdd')}}">
+				{!! Form::button('Новая запись',['class'=>'btn btn-danger','type'=>'submit']) !!}
+			</a>
+		</div>
+		<form action="{{route('adminHoroscope')}}" method="GET">
+			{!! csrf_field() !!}
+			<div class="col-sm-2">
+				<select name="countOfRows" id="row" class="form-control">
+					@if(isset($startOfRow))
+						<option selected value={{$startOfRow}}>{{$startOfRow}}-{{$startOfRow+20}}</option>
+					@endif
+                    <?php $j = 0 ?>
+					@for($i=20; $i<=$count; $i+=20)
+						<option value={{$j}}>{{$j}}-{{$i}}</option>
+                        <?php $j = $i ?>
+					@endfor
+					@if($j-$count<0)
+						<option value={{$j}}>{{$j}}-{{$j + 20}}</option>
+					@endif
+				</select>
+			</div>
+			<input type="submit" class="btn btn-danger" value="Показать">
+		</form>
 	</div>
 </div>
 
@@ -25,7 +46,7 @@
 				</thead>
 				<tbody>
 
-				@foreach($horoscopes as $k => $horoscope)
+				@foreach($horoscopes as $horoscope)
 
 					<tr>
 

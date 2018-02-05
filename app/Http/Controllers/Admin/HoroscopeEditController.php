@@ -17,7 +17,7 @@ class HoroscopeEditController extends Controller
         } elseif ($request->has('edit') && $request->isMethod('GET')) {
             $content = Content::find($id);
             $zadiaks = Zadiak::all();
-            return view('admin.horoscopes_edit',['content'=>$content, 'zadiaks'=>$zadiaks]);
+            return view('admin.horoscopes.horoscopes_edit',['content'=>$content, 'zadiaks'=>$zadiaks]);
         } elseif($request->has('submitEdit') && $request->isMethod('POST')){
             $content = Content::find($id);
             $content-> zadiak_id = $request->input('zadiak_id');
@@ -30,7 +30,6 @@ class HoroscopeEditController extends Controller
             $content->save();
             return redirect()->route('adminHoroscope');
         } else{
-            dd('xx3');
             abort(404);
         }
     }
