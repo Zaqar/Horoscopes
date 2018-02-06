@@ -23,11 +23,10 @@
 			</div>
 		</div>
 
-
 		<div class="form-group">
 			<label for="percent" class="col-sm-2 control-label">Процент</label>
 			<div class="col-sm-3">
-				<input type="text" id="percent"  name = "percent" class="form-control">
+				<input type="number" id="percent" size="3" min="1" max="100" name = "percent" class="form-control">
 			</div>
 		</div>
 

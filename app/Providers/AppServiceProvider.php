@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        session_start();
         setlocale(LC_ALL, "russian");
     }
 

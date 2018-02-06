@@ -45,7 +45,7 @@
                          <form action="{{ route('compatibilityHoroscopePost') }}" method="POST">
 	                         {!! csrf_field() !!}
                          	<div class="form-group">
-    					<label for="id1">Вы <a href="" >мужчина</a></label>
+    					<label for="id1">Вы <span type="hidden" id="a1" onclick="change()">Мужчина</span></label>
                           <select class="form-control" id="id1" name="first_id">
                             <option value="1" selected="selected">Овен</option>
                             <option value="2">Телец</option>
@@ -63,7 +63,7 @@
                         </div>
 							
                         <div class="form-group">
-    					<label for="id2">Ваш партнер <a href="">женщина</a></label>
+    					<label for="id2">Ваш партнер <span type="hidden" id="a2" onclick="change()">Женчина</span></label>
                           <select class="form-control" id="id2" name="second_id">
                             <option value="1" selected="selected">Овен</option>
                             <option value="2">Телец</option>
@@ -84,8 +84,22 @@
     			</div>
     		</div>
     	</div>
-
     </section>
+   <script>
+       function change() {
+           var first;
+           var second;
+
+	       first = document.getElementById("a1").textContent;
+	       second = document.getElementById("a2").textContent;
+
+           document.getElementById("a2").innerHTML = first;
+           document.getElementById("a1").innerHTML = second;
+
+           sessionStorage.setItem('first', second);
+           sessionStorage.setItem('second', first);
+       }
+   </script>
         <div style="height: 3px; background: red;"></div>
 
         <section>

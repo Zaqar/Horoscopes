@@ -6,6 +6,7 @@ use App\CompatibilityHoroscope;
 use App\Zadiak;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class CompatibilityHoroscopeAddController extends Controller
 {
@@ -15,7 +16,7 @@ class CompatibilityHoroscopeAddController extends Controller
             $object = new CompatibilityHoroscope();
             $object->first_id = $request->input('first_id');
             $object->second_id = $request->input('second_id');
-            $object->percent = (($request->input('percent')>=0)&&($request->input('percent')<=100))?$request->input('percent'):null;
+            $object->percent = $request->input('percent');
             $object->content_1 = $request->input('content_1');
             $object->content_2 = $request->input('content_2');
             $object->content_3 = $request->input('content_3');
@@ -29,7 +30,7 @@ class CompatibilityHoroscopeAddController extends Controller
             $object->save();
             return redirect()->route('adminCompatibilityHoroscope');
         } elseif($request->isMethod('GET')) {
-            $zadiaks = Zadiak::take(12)->get();
+            $zadiaks = DB::table('zadiaks')->select('id','name')->where('name','<>','Для всех знаков')->groupBy('name')->orderBy('id')->get();
             return view("admin.compatibilityHoroscopes.compatibility_horoscopes_add", ['zadiaks'=>$zadiaks]);
         } else {
             abort(404);

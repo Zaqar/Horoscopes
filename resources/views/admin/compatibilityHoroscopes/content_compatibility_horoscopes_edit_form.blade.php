@@ -36,9 +36,9 @@
 			<label for="percent" class="col-sm-2 control-label">Процент</label>
 			<div class="col-sm-3">
 				@if(isset($horoscope->percent))
-					<input type="text" id="percent" name = "percent" value="{{$horoscope->percent}}" placeholder="{{$horoscope->percent}}">
+					<input type="number" id="percent" size="3" min="1" max="100" class="form-control" name = "percent" value="{{$horoscope->percent}}" placeholder="{{$horoscope->percent}}">
 				@else
-					<input type="text" id="percent" name = "percent">
+					<input type="number" id="percent" size="3" min="1" max="100" name = "percent" class="form-control">
 				@endif
 			</div>
 		</div>
@@ -50,9 +50,16 @@
 					@if(isset($horoscope->point_1))
 						<option value="{{$horoscope->point_1}}" selected>{{$horoscope->point_1}}</option>
 					@endif
-						<option value="хорошо">Хорошо</option>
-						<option value="cредне">Средне</option>
-						<option value="плохо">Плохо</option>
+					@if($horoscope->point_1=="Хорошо")
+						<option value="Средне">Средне</option>
+						<option value="Плохо">Плохо</option>
+					@elseif($horoscope->point_1=="Средне")
+						<option value="Средне">Хорошо</option>
+						<option value="Плохо">Плохо</option>
+					@else
+						<option value="Средне">Хорошо</option>
+						<option value="Плохо">Средне</option>
+					@endif
 
 				</select>
 			</div>
@@ -63,9 +70,16 @@
 					@if(isset($horoscope->point_2))
 						<option value="{{$horoscope->point_2}}" selected>{{$horoscope->point_2}}</option>
 					@endif
-					<option value="хорошо">Хорошо</option>
-					<option value="cредне">Средне</option>
-					<option value="плохо">Плохо</option>
+					@if($horoscope->point_2=="Хорошо")
+						<option value="Средне">Средне</option>
+						<option value="Плохо">Плохо</option>
+					@elseif($horoscope->point_2=="Средне")
+						<option value="Средне">Хорошо</option>
+						<option value="Плохо">Плохо</option>
+					@else
+						<option value="Средне">Хорошо</option>
+						<option value="Плохо">Средне</option>
+					@endif
 				</select>
 			</div>
 
@@ -75,9 +89,16 @@
 					@if(isset($horoscope->point_3))
 						<option value="{{$horoscope->point_3}}" selected>{{$horoscope->point_3}}</option>
 					@endif
-					<option value="хорошо">Хорошо</option>
-					<option value="cредне">Средне</option>
-					<option value="плохо">Плохо</option>
+					@if($horoscope->point_3=="Хорошо")
+						<option value="Средне">Средне</option>
+						<option value="Плохо">Плохо</option>
+					@elseif($horoscope->point_3=="Средне")
+						<option value="Средне">Хорошо</option>
+						<option value="Плохо">Плохо</option>
+					@else
+						<option value="Средне">Хорошо</option>
+						<option value="Плохо">Средне</option>
+					@endif
 				</select>
 			</div>
 
@@ -87,9 +108,16 @@
 					@if(isset($horoscope->point_4))
 						<option value="{{$horoscope->point_4}}" selected>{{$horoscope->point_4}}</option>
 					@endif
-					<option value="хорошо">Хорошо</option>
-					<option value="cредне">Средне</option>
-					<option value="плохо">Плохо</option>
+					@if($horoscope->point_4=="Хорошо")
+						<option value="Средне">Средне</option>
+						<option value="Плохо">Плохо</option>
+					@elseif($horoscope->point_4=="Средне")
+						<option value="Средне">Хорошо</option>
+						<option value="Плохо">Плохо</option>
+					@else
+						<option value="Средне">Хорошо</option>
+						<option value="Плохо">Средне</option>
+					@endif
 				</select>
 			</div>
 
@@ -99,9 +127,16 @@
 					@if(isset($horoscope->point_5))
 						<option value="{{$horoscope->point_5}}" selected>{{$horoscope->point_5}}</option>
 					@endif
-					<option value="хорошо">Хорошо</option>
-					<option value="cредне">Средне</option>
-					<option value="плохо">Плохо</option>
+					@if($horoscope->point_5=="Хорошо")
+						<option value="Средне">Средне</option>
+						<option value="Плохо">Плохо</option>
+					@elseif($horoscope->point_5=="Средне")
+						<option value="Средне">Хорошо</option>
+						<option value="Плохо">Плохо</option>
+					@else
+						<option value="Средне">Хорошо</option>
+						<option value="Плохо">Средне</option>
+					@endif
 				</select>
 			</div>
 		</div>

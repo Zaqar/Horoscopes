@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix'=>'admin','middleware'=>'auth'], function () {
     Route::get('/', function () {
+        $_SESSION['btn']=0;
         return view('admin.index');
-    });
+    })->name('admin');
 
     Route::group(['prefix'=>'horoscope'], function () {
         Route::get('/', ['uses'=>'Admin\HoroscopeController@show', 'as'=>'adminHoroscope']);

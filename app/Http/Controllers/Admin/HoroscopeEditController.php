@@ -6,6 +6,7 @@ use App\Content;
 use App\Zadiak;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class HoroscopeEditController extends Controller
 {
@@ -16,7 +17,7 @@ class HoroscopeEditController extends Controller
             return redirect()->route('adminHoroscope');
         } elseif ($request->has('edit') && $request->isMethod('GET')) {
             $content = Content::find($id);
-            $zadiaks = Zadiak::all();
+            $zadiaks = DB::table('zadiaks')->select('id','name')->groupBy('name')->orderBy('id')->get();
             return view('admin.horoscopes.horoscopes_edit',['content'=>$content, 'zadiaks'=>$zadiaks]);
         } elseif($request->has('submitEdit') && $request->isMethod('POST')){
             $content = Content::find($id);

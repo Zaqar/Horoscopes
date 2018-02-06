@@ -10,6 +10,7 @@ class ZadiakController extends Controller
 {
     public function show(Request $request) {
         if(view()->exists('admin.zadiaks.contents')) {
+          $_SESSION['btn']=3;
           $count = Zadiak::count();
         if($request->has('countOfRows')) {
             $zadiaks = Zadiak::skip($request->input('countOfRows'))->take(20)->get();

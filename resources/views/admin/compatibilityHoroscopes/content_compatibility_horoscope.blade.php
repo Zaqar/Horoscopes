@@ -9,17 +9,20 @@
 			{!! csrf_field() !!}
 			<div class="col-sm-2">
 				<select name="countOfRows" id="row" class="form-control">
-					@if(isset($startOfRow))
-						<option selected value={{$startOfRow}}>{{$startOfRow}}-{{$startOfRow+20}}</option>
-					@endif
-                    <?php $j = 0?>
+                    <?php $j = 1?>
 					@for($i=20; $i<=$count; $i+=20)
-						<option value={{$j}}>{{$j}}-{{$i}}</option>
+						@if($j==$startOfRow+1)
+							<option selected value={{$j-1}}>{{$j}}-{{$i}}</option>
+						@else
+							<option value={{$j-1}}>{{$j}}-{{$i}}</option>
+						@endif
                         <?php $j = $i ?>
 					@endfor
-					@if($j-$count<0)
-						<option value={{$j}}>{{$j}}-{{$j + 20}}</option>
-					@endif
+	                    @if($count%20!=0 && $j!=1)
+		                    <option value={{$j-1}}>{{$j}}-{{$j+($count%20)}}</option>
+	                    @elseif($count%20!=0)
+		                    <option value={{$j-1}}>{{$j}}-{{$count}}</option>
+	                    @endif
 				</select>
 			</div>
 			<input type="submit" class="btn btn-danger" value="Показать">
@@ -56,9 +59,10 @@
 
 					<tr>
 
-						<td>{{ $horoscope->id }}</td>
+						<td >{{ $horoscope->id }}</td>
 						<td>{{ $horoscope->first_id }}</td>
 						<td>{{ $horoscope->second_id }}</td>
+						<td>{{ $horoscope->percent }}</td>
 						<td>{{ $horoscope->content_1 }}</td>
 						<td>{{ $horoscope->content_2 }}</td>
 						<td>{{ $horoscope->content_3 }}</td>

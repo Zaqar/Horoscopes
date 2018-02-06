@@ -6,6 +6,7 @@ use App\Content;
 use App\Zadiak;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class HoroscopeAddController extends Controller
 {
@@ -23,7 +24,7 @@ class HoroscopeAddController extends Controller
             $content->save();
             return redirect()->route('adminHoroscope');
         } elseif(view()->exists('admin.horoscopes.horoscopes_add')) {
-            $zadiaks = Zadiak::all();
+            $zadiaks = DB::table('zadiaks')->select('id','name')->groupBy('name')->orderBy('id')->get();
             return view("admin.horoscopes.horoscopes_add", ['zadiaks'=>$zadiaks]);
         } else {
             abort(404);

@@ -11,9 +11,10 @@ class HoroscopeController extends Controller
     //
     public function show(Request $request) {
         if(view()->exists('admin.horoscopes.contents')) {
+            $_SESSION['btn']=1;
             $count = Content::count();
             if($request->has('countOfRows')) {
-                $contents = Content::skip($request->input('countOfRows'))->take(20)->get();
+                $contents = Content::skip($request->input('countOfRows'))->take(21)->get();
                 $startOfRow = $request->input('countOfRows');
             } else {
                 $contents = Content::take(50)->get();

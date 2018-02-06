@@ -8,9 +8,10 @@
 					@foreach($zadiaks as $zadiak)
 						@if($zadiak->id==$content->zadiak_id)
 							<option selected value={{$zadiak->id}}>{{$zadiak->name}}</option>
+						@else
+							<option value={{$zadiak->id}}>{{$zadiak->name}}</option>
 						@endif
-						<option value={{$zadiak->id}}>{{$zadiak->name}}</option>
-						@endforeach
+					@endforeach
 				</select>
 			</div>
 		</div>
@@ -53,6 +54,9 @@
 				<select name="love" id="love" class="form-control">
 					<option selected value={{$content->love}}>{{$content->love}}</option>
 					@for($i = 5; $i>=1; --$i)
+						@if($i==$content->love)
+							@continue
+						@endif
 						<option value={{$i}}>{{$i}}</option>
 					@endfor
 				</select>
@@ -63,6 +67,9 @@
 				<select name="business" id="business" class="form-control">
 					<option selected value={{$content->business}} >{{$content->business}}</option>
 					@for($i = 5; $i>=1; --$i)
+						@if($i==$content->business)
+							@continue
+						@endif
 						<option value="{{$i}}">{{$i}}</option>
 					@endfor
 				</select>
@@ -73,6 +80,9 @@
 				<select name="health" id="health" class="form-control">
 					<option value={{$content->health}} selected>{{$content->health}}</option>
 					@for($i = 5; $i>=1; --$i)
+						@if($i==$content->health)
+							@continue
+						@endif
 						<option value={{$i}}>{{$i}}</option>
 					@endfor
 				</select>
