@@ -1,32 +1,10 @@
 <div class="container-fluid">
-	<div class="row" style="padding-left: 50px; padding-bottom: 10px">
-		<div class="col-sm-2 col-sm-offset-3">
-			<a href="{{route('compatibilityHoroscopeAdd')}}">
+	<div class="row" style="padding-left: 80px; padding-bottom: 10px">
+		<div class="col-sm-2 col-sm-offset-5">
+			<a href="{{route('compatibilityHoroscopeCreate')}}">
 				<button class="btn btn-danger" type="submit"> Новая запись </button>
 			</a>
 		</div>
-		<form action="{{route('adminCompatibilityHoroscope')}}" method="GET">
-			{!! csrf_field() !!}
-			<div class="col-sm-2">
-				<select name="countOfRows" id="row" class="form-control">
-                    <?php $j = 1?>
-					@for($i=20; $i<=$count; $i+=20)
-						@if($j==$startOfRow+1)
-							<option selected value={{$j-1}}>{{$j}}-{{$i}}</option>
-						@else
-							<option value={{$j-1}}>{{$j}}-{{$i}}</option>
-						@endif
-                        <?php $j = $i ?>
-					@endfor
-	                    @if($count%20!=0 && $j!=1)
-		                    <option value={{$j-1}}>{{$j}}-{{$j+($count%20)}}</option>
-	                    @elseif($count%20!=0)
-		                    <option value={{$j-1}}>{{$j}}-{{$count}}</option>
-	                    @endif
-				</select>
-			</div>
-			<input type="submit" class="btn btn-danger" value="Показать">
-		</form>
 	</div>
 </div>
 
@@ -56,18 +34,16 @@
 				<tbody>
 
 				@foreach($horoscopes as $k => $horoscope)
-
 					<tr>
-
 						<td >{{ $horoscope->id }}</td>
 						<td>{{ $horoscope->first_id }}</td>
 						<td>{{ $horoscope->second_id }}</td>
 						<td>{{ $horoscope->percent }}</td>
-						<td>{{ $horoscope->content_1 }}</td>
-						<td>{{ $horoscope->content_2 }}</td>
-						<td>{{ $horoscope->content_3 }}</td>
-						<td>{{ $horoscope->content_4 }}</td>
-						<td>{{ $horoscope->content_5 }}</td>
+						<td>{{ str_limit($horoscope->content_1,50) }}</td>
+						<td>{{ str_limit($horoscope->content_2,50) }}</td>
+						<td>{{ str_limit($horoscope->content_3,50) }}</td>
+						<td>{{ str_limit($horoscope->content_4,50) }}</td>
+						<td>{{ str_limit($horoscope->content_5,50) }}</td>
 						<td>{{ $horoscope->point_1 }}</td>
 						<td>{{ $horoscope->point_2 }}</td>
 						<td>{{ $horoscope->point_3 }}</td>
@@ -82,7 +58,7 @@
 								</button>
 							</form>
 
-							<form action="{{route('compatibilityHoroscopeEdit',['id'=>$horoscope->id])}}" method="POST" class="form-horizontal">
+							<form action="{{route('compatibilityHoroscopeDestroy',['id'=>$horoscope->id])}}" method="POST" class="form-horizontal">
 								{!! csrf_field() !!}
 								{{ method_field('DELETE') }}
 								<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete">
@@ -92,7 +68,7 @@
 						</td>
 					</tr>
 				@endforeach
-
+				{{ $horoscopes->links() }}
 				</tbody>
 			</table>
 		@endif

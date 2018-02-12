@@ -1,6 +1,7 @@
 <div class="container" style="padding-top: 20px ">
-	<form class="form-horizontal" action="{{route('horoscopeEdit',['id'=>$content->id])}}" method='POST'>
+	<form class="form-horizontal" action="{{route('horoscopeUpdate',['id'=>$content->id])}}" method='post'>
 		{!! csrf_field() !!}
+		{!! method_field('PUT') !!}
 		<div class="form-group">
 			<label for="zadiak_id" class="col-sm-2 control-label">Выберите задиак</label>
 			<div class="col-sm-3">

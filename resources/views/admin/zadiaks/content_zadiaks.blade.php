@@ -1,32 +1,10 @@
 <div class="container-fluid">
-	<div class="row" style="padding-right: 35px; padding-bottom: 10px">
-		<div class="col-sm-2 col-sm-offset-7">
-			<a href="{{route('zadiakAdd')}}">
+	<div class="row" style="padding-right: 80px; padding-bottom: 10px">
+		<div class="col-sm-1 col-sm-offset-11">
+			<a href="{{route('zadiakCreate')}}">
 				{!! Form::button('Новая запись',['class'=>'btn btn-danger','type'=>'submit']) !!}
 			</a>
 		</div>
-		<form action="{{route('adminZadiak')}}" method="GET">
-			{!! csrf_field() !!}
-			<div class="col-sm-2">
-				<select name="countOfRows" id="row" class="form-control">
-                    <?php $j = 1?>
-					@for($i=20; $i<=$count; $i+=20)
-						@if($j==$startOfRow+1)
-							<option selected value={{$j-1}}>{{$j}}-{{$i}}</option>
-						@else
-							<option value={{$j-1}}>{{$j}}-{{$i}}</option>
-						@endif
-                        <?php $j = $i ?>
-					@endfor
-					@if($count%20!=0 && $j!=1)
-						<option value={{$j-1}}>{{$j}}-{{$j+($count%20)}}</option>
-	                 @elseif($count%20!=0)
-						<option value={{$j-1}}>{{$j}}-{{$count}}</option>
-					@endif
-				</select>
-			</div>
-			<input type="submit" class="btn btn-danger" value="Показать">
-		</form>
 	</div>
 </div>
 
@@ -56,24 +34,21 @@
 						<td>{{ $zadiak->end_month }}</td>
 
 						<td width="100px">
-							<form action="{{route('zadiakEdit',['id'=>$zadiak->id])}}" method="GET" class="form-horizontal">
-								{!! csrf_field() !!}
-								<button type="submit" class="btn btn-default" aria-label="Left Align" name="edit">
-									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-								</button>
-							</form>
+							{!! Form::open(array('url' => route('zadiakEdit',['id'=>$zadiak->id]), 'method' => 'get'),array('class'=>'form-horizontal')) !!}
+							<button type="submit" class="btn btn-default" aria-label="Left Align" name="edit">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</button>
+							{!! Form::close() !!}
 
-							<form action="{{route('zadiakEdit',['id'=>$zadiak->id])}}" method="POST" class="form-horizontal">
-								{!! csrf_field() !!}
-								{{ method_field('DELETE') }}
-								<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete">
-									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-								</button>
-							</form>
+							{!! Form::open(array('url' => route('zadiakDestroy',['id'=>$zadiak->id]), 'method' => 'delete')) !!}
+							<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete">
+								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							</button>
+							{!! Form::close() !!}
 						</td>
 					</tr>
 				@endforeach
-
+				{{ $zadiaks->links() }}
 				</tbody>
 			</table>
 		@endif

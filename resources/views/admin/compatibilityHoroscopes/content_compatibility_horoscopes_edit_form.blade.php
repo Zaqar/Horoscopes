@@ -1,6 +1,7 @@
 <div class="container" style="padding-top: 20px ">
-	<form class="form-horizontal" action="{{route('compatibilityHoroscopeEdit',['id'=>$horoscope->id])}}" method='POST'>
+	<form class="form-horizontal" action="{{route('compatibilityHoroscopeUpdate',['id'=>$horoscope->id])}}" method='POST'>
 		{!! csrf_field() !!}
+		{!! method_field('put') !!}
 		<div class="form-group">
 			<label for="first_id" class="col-sm-2  control-label">Первый знак</label>
 			<div class="col-sm-3">

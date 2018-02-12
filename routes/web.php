@@ -21,23 +21,31 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'], function () {
     })->name('admin');
 
     Route::group(['prefix'=>'horoscope'], function () {
-        Route::get('/', ['uses'=>'Admin\HoroscopeController@show', 'as'=>'adminHoroscope']);
-        Route::match(['get','post'],'/add', ['uses'=>'Admin\HoroscopeAddController@add', 'as'=>'horoscopeAdd']);
-        Route::match(['get','post','delete'],'/edit/{id}', ['uses'=>'Admin\HoroscopeEditController@execute', 'as'=>'horoscopeEdit']);
+        Route::get('/', ['uses'=>'Admin\HoroscopeController@index', 'as'=>'adminHoroscope']);
+        Route::get('/add', ['uses'=>'Admin\HoroscopeController@create', 'as'=>'horoscopeCreate']);
+        Route::post('/add', ['uses'=>'Admin\HoroscopeController@store', 'as'=>'horoscopeStore']);
+        Route::delete('/destroy/{id}', ['uses'=>'Admin\HoroscopeController@destroy', 'as'=>'horoscopeDestroy']);
+        Route::get('/edit/{id}', ['uses'=>'Admin\HoroscopeController@edit', 'as'=>'horoscopeEdit']);
+        Route::put('/update/{id}', ['uses'=>'Admin\HoroscopeController@update', 'as'=>'horoscopeUpdate']);
     });
 
     Route::group(['prefix'=>'compatibilityHoroscope'], function () {
-        Route::get('/', ['uses'=>'Admin\CompatibilityHoroscopeController@show', 'as'=>'adminCompatibilityHoroscope']);
-        Route::match(['get','post'],'/add', ['uses'=>'Admin\CompatibilityHoroscopeAddController@add', 'as'=>'compatibilityHoroscopeAdd']);
-        Route::match(['get','post','delete'],'/edit/{id}', ['uses'=>'Admin\CompatibilityHoroscopeEditController@execute', 'as'=>'compatibilityHoroscopeEdit']);
+        Route::get('/', ['uses'=>'Admin\CompatibilityHoroscopeController@index', 'as'=>'adminCompatibilityHoroscope']);
+        Route::get('/add', ['uses'=>'Admin\CompatibilityHoroscopeController@create', 'as'=>'compatibilityHoroscopeCreate']);
+        Route::post('/add', ['uses'=>'Admin\CompatibilityHoroscopeController@store', 'as'=>'compatibilityHoroscopeStore']);
+        Route::delete('/destroy/{id}', ['uses'=>'Admin\CompatibilityHoroscopeController@destroy', 'as'=>'compatibilityHoroscopeDestroy']);
+        Route::get('/edit/{id}', ['uses'=>'Admin\CompatibilityHoroscopeController@edit', 'as'=>'compatibilityHoroscopeEdit']);
+        Route::put('/update/{id}', ['uses'=>'Admin\CompatibilityHoroscopeController@update', 'as'=>'compatibilityHoroscopeUpdate']);
     });
 
     Route::group(['prefix'=>'zadiaks'], function () {
-        Route::get('/', ['uses'=>'Admin\ZadiakController@show', 'as'=>'adminZadiak']);
-        Route::match(['get','post'],'/add', ['uses'=>'Admin\ZadiakAddController@add', 'as'=>'zadiakAdd']);
-        Route::match(['get','post','delete'],'/edit/{id}', ['uses'=>'Admin\ZadiakEditController@execute', 'as'=>'zadiakEdit']);
+        Route::get('/', ['uses'=>'Admin\ZadiakController@index', 'as'=>'adminZadiak']);
+        Route::get('/add', ['uses'=>'Admin\ZadiakController@create', 'as'=>'zadiakCreate']);
+        Route::post('/add', ['uses'=>'Admin\ZadiakController@store', 'as'=>'zadiakStore']);
+        Route::delete('/destroy/{id}', ['uses'=>'Admin\ZadiakController@destroy', 'as'=>'zadiakDestroy']);
+        Route::get('/edit/{id}', ['uses'=>'Admin\ZadiakController@edit', 'as'=>'zadiakEdit']);
+        Route::put('/update/{id}', ['uses'=>'Admin\ZadiakController@update', 'as'=>'zadiakUpdate']);
     });
-
 });
 
 Route::group(['middleware'=>'web'],function () {

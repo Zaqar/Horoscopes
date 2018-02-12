@@ -1,5 +1,5 @@
 <div class="container" style="padding-top: 20px ">
-	<form class="form-horizontal" action="{{route('compatibilityHoroscopeAdd')}}" method='POST'>
+	<form class="form-horizontal" action="{{route('compatibilityHoroscopeStore')}}" method='POST'>
 		{!! csrf_field() !!}
 		<div class="form-group">
 			<label for="first_id" class="col-sm-2  control-label">Первый знак</label>

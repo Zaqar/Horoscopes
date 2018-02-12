@@ -1,5 +1,5 @@
 <div class="container" style="padding-top: 20px ">
-	<form class="form-horizontal" action="{{route('horoscopeAdd')}}" method='post'>
+	<form class="form-horizontal" action="{{route('horoscopeStore')}}" method='post'>
 		{!! csrf_field() !!}
 		<div class="form-group">
 			<label for="zadiak_id" class="col-sm-2 control-label">Выберите задиак</label>

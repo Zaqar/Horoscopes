@@ -1,6 +1,7 @@
 <div class="container" style="padding-top: 20px ">
-	<form class="form-horizontal" action="{{route('zadiakEdit',['id'=>$oldZadiak->id])}}" method='post'>
+	<form class="form-horizontal" action="{{route('zadiakUpdate',['id'=>$oldZadiak->id])}}" method='post'>
 		{!! csrf_field() !!}
+		{!! method_field('put') !!}
 		<div class="form-group">
 			<label for="name" class="col-sm-2 control-label">Выберите задиак</label>
 			<div class="col-sm-3">

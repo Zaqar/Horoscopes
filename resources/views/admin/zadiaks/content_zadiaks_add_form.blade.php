@@ -1,5 +1,5 @@
 <div class="container" style="padding-top: 20px ">
-	<form class="form-horizontal" action="{{route('zadiakAdd')}}" method='post'>
+	<form class="form-horizontal" action="{{route('zadiakCreate')}}" method='post'>
 		{!! csrf_field() !!}
 		<div class="form-group">
 			<label for="name" class="col-sm-2 control-label">Выберите задиак</label>
